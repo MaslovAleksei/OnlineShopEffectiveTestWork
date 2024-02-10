@@ -8,6 +8,6 @@ data class ProfileDb(
     @PrimaryKey
     val id: Int,
     val firstName: String,
-    val secondName: String,
+    val lastName: String,
     val phoneNumber: String
 )

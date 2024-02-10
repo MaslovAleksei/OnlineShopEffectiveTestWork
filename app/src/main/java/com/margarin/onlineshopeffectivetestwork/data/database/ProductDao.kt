@@ -13,7 +13,7 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addProductList(products: List<ProductDb>)
 
-    @Query("SELECT * FROM products")
+    @Query("SELECT * FROM products ORDER BY rating DESC")
     fun getProductList(): Flow<List<ProductDb>>
 
     @Query("SELECT * FROM products WHERE id=:itemId LIMIT 1")

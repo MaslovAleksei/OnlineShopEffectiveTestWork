@@ -11,7 +11,7 @@ data class ProductDb(
     val subtitle: String,
     val price: String,
     val discount: Int,
-    val priceWithDiscount: String,
+    val priceWithDiscount: Int,
     val unit: String,
     val count: Int,
     val rating: Float,

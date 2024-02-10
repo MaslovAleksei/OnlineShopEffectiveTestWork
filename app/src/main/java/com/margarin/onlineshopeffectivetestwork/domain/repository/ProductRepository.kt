@@ -10,4 +10,5 @@ interface ProductRepository {
     suspend fun downloadProductList()
 
     suspend fun getProductItem(productId: String): Product
+
 }

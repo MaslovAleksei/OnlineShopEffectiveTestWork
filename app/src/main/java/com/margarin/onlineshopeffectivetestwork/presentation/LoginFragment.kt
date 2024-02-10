@@ -2,11 +2,14 @@ package com.margarin.onlineshopeffectivetestwork.presentation
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.margarin.onlineshopeffectivetestwork.R
 import com.margarin.onlineshopeffectivetestwork.ShopApp
 import com.margarin.onlineshopeffectivetestwork.databinding.FragmentLoginBinding
 import com.margarin.onlineshopeffectivetestwork.domain.model.Profile
@@ -51,6 +54,16 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListeners()
+
+        setTextWatchers()
+
+        binding.inputEditTextPhoneNumber.setOnFocusChangeListener { _, boolean ->
+            binding.inputLayoutPhoneNumber.hint = if (boolean) {
+                getString(R.string.phone_mask)
+            } else {
+                getString(R.string.phone_number)
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -59,39 +72,137 @@ class LoginFragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
+
         binding.bSignIn.setOnClickListener {
 
-            val name = binding.inputEditTextFirstname.text.toString()
-            val lastName = binding.inputEditTextLastname.text.toString()
-            val phoneNumber = binding.inputEditTextPassword.text.toString()
-
-
-            val nameValidations = BaseValidator.validate(
-                EmptyValidator(name), NameValidator(name)
+            viewModel.add(
+                Profile(
+                    firstName = binding.inputEditTextFirstname.text.toString().replaceFirstChar {
+                        it.uppercase()
+                    },
+                    lastName = binding.inputEditTextLastname.text.toString().replaceFirstChar {
+                        it.uppercase()
+                    },
+                    phoneNumber = "7${binding.inputEditTextPhoneNumber.text.toString()}"
+                )
             )
-            binding.inputLayoutFirstname.error =
-                if (!nameValidations.isSuccess) getString(nameValidations.message) else null
+        }
+    }
 
+    private fun setTextWatchers() {
+        setTextNameWatcher()
+        setTextLastNameWatcher()
+        setPhoneNumberWatcher()
+    }
 
-            val lastNameValidations = BaseValidator.validate(
-                EmptyValidator(lastName), NameValidator(lastName)
-            )
-            binding.inputLayoutLastname.error =
-                if (!lastNameValidations.isSuccess) getString(lastNameValidations.message) else null
+    private fun checkAllFieldsValidated() {
+        with(binding) {
+            bSignIn.isEnabled =
+                inputLayoutFirstname.error == null &&
+                        inputLayoutLastname.error == null &&
+                        inputLayoutPhoneNumber.error == null &&
+                        inputEditTextFirstname.text?.isNotEmpty() == true &&
+                        inputEditTextLastname.text?.isNotEmpty() == true &&
+                        inputEditTextPhoneNumber.text?.isNotEmpty() == true
+        }
+    }
 
+    private fun setTextNameWatcher() {
+        val textNameWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
-            val phoneNumberValidations = BaseValidator.validate(
-                EmptyValidator(phoneNumber), PhoneValidator(phoneNumber)
-            )
-            binding.inputLayoutPhoneNumber.error =
-                if (!phoneNumberValidations.isSuccess) {
-                    getString(phoneNumberValidations.message)
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val string = charSequence.toString()
+                if (string.isNotEmpty()) {
+                    val nameValidations = BaseValidator.validate(
+                        EmptyValidator(string), NameValidator(string)
+                    )
+                    binding.inputLayoutFirstname.error =
+                        if (!nameValidations.isSuccess) {
+                            getString(nameValidations.message)
+                        } else {
+                            null
+                        }
                 } else {
-                    null
+                    binding.inputLayoutFirstname.error = null
                 }
-            if (nameValidations.isSuccess && lastNameValidations.isSuccess && phoneNumberValidations.isSuccess) {
-                viewModel.add(Profile(name, lastName, phoneNumber))
+                checkAllFieldsValidated()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        }
+        binding.inputEditTextFirstname.addTextChangedListener(textNameWatcher)
+    }
+
+    private fun setTextLastNameWatcher() {
+        val textLastNameWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val string = charSequence.toString()
+                if (string.isNotEmpty()) {
+
+                    val nameValidations = BaseValidator.validate(
+                        EmptyValidator(string), NameValidator(string)
+                    )
+                    binding.inputLayoutLastname.error =
+                        if (!nameValidations.isSuccess) {
+                            getString(nameValidations.message)
+                        } else {
+                            null
+                        }
+                } else {
+                    binding.inputLayoutLastname.error = null
+                }
+                checkAllFieldsValidated()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
             }
         }
+        binding.inputEditTextLastname.addTextChangedListener(textLastNameWatcher)
+    }
+
+    private fun setPhoneNumberWatcher() {
+        val textPhoneNumberWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                var string = charSequence.toString()
+                if (string.isNotEmpty()) {
+
+                    if (string.startsWith("+") || string.startsWith("7")) {
+                        string = string.drop(1)
+                        binding.inputEditTextPhoneNumber.setText(string)
+                        return
+                    }
+                    if (string.startsWith("+7") || string.startsWith("(7")) {
+                        string = string.drop(2)
+                        binding.inputEditTextPhoneNumber.setText(string)
+                        return
+                    }
+
+                    val phoneNumberValidations = BaseValidator.validate(
+                        EmptyValidator(string), PhoneValidator(string)
+                    )
+                    binding.inputLayoutPhoneNumber.error =
+                        if (!phoneNumberValidations.isSuccess) {
+                            getString(phoneNumberValidations.message)
+                        } else {
+                            null
+                        }
+                } else {
+                    binding.inputLayoutPhoneNumber.error = null
+                }
+                checkAllFieldsValidated()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        }
+        binding.inputEditTextPhoneNumber.addTextChangedListener(textPhoneNumberWatcher)
     }
 }

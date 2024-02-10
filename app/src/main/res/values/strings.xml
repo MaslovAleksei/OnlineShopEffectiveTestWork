@@ -1,4 +1,10 @@
 <resources>
+    <string-array name="spinner_array">
+        <item>By rating</item>
+        <item>By price ascending</item>
+        <item>By price descending</item>
+    </string-array>
+
     <string name="app_name">OnlineShopEffectiveTestWork</string>
     <!-- Strings related to login -->
 
@@ -18,4 +24,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="phone_mask">+7 (___) ___-__-__</string>
+    <string name="please_enter_full_phone_number">Please enter full phone number</string>
 </resources>

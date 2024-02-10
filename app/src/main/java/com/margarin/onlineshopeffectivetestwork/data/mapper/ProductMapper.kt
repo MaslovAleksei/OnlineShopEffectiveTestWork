@@ -1,5 +1,6 @@
 package com.margarin.onlineshopeffectivetestwork.data.mapper
 
+import com.margarin.onlineshopeffectivetestwork.R
 import com.margarin.onlineshopeffectivetestwork.data.database.model.ProductDb
 import com.margarin.onlineshopeffectivetestwork.data.network.model.ProductDto
 import com.margarin.onlineshopeffectivetestwork.domain.model.Product
@@ -16,7 +17,7 @@ fun ProductDto.toDbModel(): ProductDb {
         subtitle = subtitle,
         price = price.price,
         discount = price.discount,
-        priceWithDiscount = price.priceWithDiscount,
+        priceWithDiscount = price.priceWithDiscount.toInt(),
         unit = price.unit,
         count = feedback.count,
         rating = feedback.rating,
@@ -42,5 +43,52 @@ fun ProductDb.toEntity() = Product(
     available = available,
     description = description,
     info = info,
-    ingredients = ingredients
+    ingredients = ingredients,
+    imageResId = id.parseImageResId()
 )
+
+private fun String.parseImageResId(): List<Int> {
+    return when(this) {
+        "cbf0c984-7c6c-4ada-82da-e29dc698bb50" -> mutableListOf(
+            R.drawable.ic_vox,
+            R.drawable.ic_eveline
+        )
+
+        "54a876a5-2205-48ba-9498-cfecff4baa6e" -> mutableListOf(
+            R.drawable.ic_pieu,
+            R.drawable.ic_esfolio
+        )
+
+        "75c84407-52e1-4cce-a73a-ff2d3ac031b3" -> mutableListOf(
+            R.drawable.ic_eveline,
+            R.drawable.ic_vox
+        )
+
+        "16f88865-ae74-4b7c-9d85-b68334bb97db" -> mutableListOf(
+            R.drawable.ic_deco,
+            R.drawable.ic_lp_care
+        )
+
+        "26f88856-ae74-4b7c-9d85-b68334bb97db" -> mutableListOf(
+            R.drawable.ic_esfolio,
+            R.drawable.ic_deco
+        )
+
+        "15f88865-ae74-4b7c-9d81-b78334bb97db" -> mutableListOf(
+            R.drawable.ic_vox,
+            R.drawable.ic_pieu
+        )
+
+        "88f88865-ae74-4b7c-9d81-b78334bb97db" -> mutableListOf(
+            R.drawable.ic_lp_care,
+            R.drawable.ic_deco
+        )
+
+        "55f58865-ae74-4b7c-9d81-b78334bb97db" -> mutableListOf(
+            R.drawable.ic_pieu,
+            R.drawable.ic_eveline
+        )
+
+        else -> mutableListOf()
+    }
+}

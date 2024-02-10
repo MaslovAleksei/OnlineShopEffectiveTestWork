@@ -42,6 +42,8 @@ android {
 
 dependencies {
 
+    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.0")
+
     implementation(libs.dagger.core)
     ksp(libs.dagger.compiler)
 
