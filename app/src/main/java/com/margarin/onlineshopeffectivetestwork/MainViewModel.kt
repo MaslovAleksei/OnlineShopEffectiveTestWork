@@ -3,7 +3,7 @@ package com.margarin.onlineshopeffectivetestwork
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.margarin.onlineshopeffectivetestwork.domain.usecase.GetAuthStateFlowUseCase
+import com.margarin.onlineshopeffectivetestwork.domain.usecase.profile.GetAuthStateFlowUseCase
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(

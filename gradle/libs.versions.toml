@@ -17,6 +17,7 @@ ksp = "1.9.22-1.0.17"
 dagger = "2.50"
 room = "2.6.1"
 retrofit = "2.9.0"
+parcelize = "1.9.22"
 
 [libraries]
 dagger-core = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
@@ -45,4 +46,5 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize" }
 

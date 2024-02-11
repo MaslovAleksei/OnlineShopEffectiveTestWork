@@ -16,6 +16,7 @@ import com.margarin.onlineshopeffectivetestwork.presentation.HomeFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.LoginFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.ProfileFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
+import com.margarin.onlineshopeffectivetestwork.presentation.favourites.FavouritesFragment
 import com.margarin.onlineshopeffectivetestwork.utils.replaceFragment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -96,7 +97,8 @@ class MainActivity : AppCompatActivity() {
 
                     R.id.bottom_menu_discounts -> {
                         currentPageId = item.itemId
-                        replaceFragment(DiscountsFragment())
+                        //replaceFragment(DiscountsFragment())
+                        replaceFragment(FavouritesFragment())
                     }
 
                     R.id.bottom_menu_profile -> {

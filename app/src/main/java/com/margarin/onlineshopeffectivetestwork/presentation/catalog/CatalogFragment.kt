@@ -2,6 +2,7 @@ package com.margarin.onlineshopeffectivetestwork.presentation.catalog
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,13 +18,15 @@ import com.google.android.material.chip.Chip
 import com.margarin.onlineshopeffectivetestwork.R
 import com.margarin.onlineshopeffectivetestwork.ShopApp
 import com.margarin.onlineshopeffectivetestwork.databinding.FragmentCatalogBinding
+import com.margarin.onlineshopeffectivetestwork.presentation.DetailsFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
 import com.margarin.onlineshopeffectivetestwork.presentation.adapter.ProductAdapter
+import com.margarin.onlineshopeffectivetestwork.utils.replaceFragment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class CatalogFragment : Fragment() {
+class CatalogFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -58,6 +61,7 @@ class CatalogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.sendEvent(CatalogEvent.GetProductList)
         configureSpinner()
         configureRecyclerView()
@@ -71,6 +75,29 @@ class CatalogFragment : Fragment() {
         super.onDestroyView()
     }
 
+
+    override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+        Log.d("tag", parent?.getItemAtPosition(position).toString())
+        when (parent?.getItemAtPosition(position)) {
+            SPINNER_ITEM_BY_RATING -> {
+                viewModel.sendEvent(CatalogEvent.SortListByRating)
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+
+            SPINNER_ITEM_BY_PRICE_ASC -> {
+                viewModel.sendEvent(CatalogEvent.SortListByAsc)
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+
+            SPINNER_ITEM_BY_PRICE_DESC -> {
+                viewModel.sendEvent(CatalogEvent.SortListByDesc)
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {}
+
     private fun configureRecyclerView() {
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         adapter = ProductAdapter()
@@ -78,6 +105,7 @@ class CatalogFragment : Fragment() {
     }
 
     private fun configureSpinner() {
+        binding.spinner.onItemSelectedListener = this
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.spinner_array,
@@ -85,33 +113,6 @@ class CatalogFragment : Fragment() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinner.adapter = adapter
-        }
-
-        binding.spinner.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View, position: Int, id: Long
-            ) {
-                when (position) {
-                    0 -> {
-                        viewModel.sendEvent(CatalogEvent.SortListByRating)
-                        binding.recyclerView.smoothScrollToPosition(0)
-                    }
-
-                    1 -> {
-                        viewModel.sendEvent(CatalogEvent.SortListByAsc)
-                        binding.recyclerView.smoothScrollToPosition(0)
-                    }
-
-                    2 -> {
-                        viewModel.sendEvent(CatalogEvent.SortListByDesc)
-                        binding.recyclerView.smoothScrollToPosition(0)
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 
@@ -170,7 +171,7 @@ class CatalogFragment : Fragment() {
             chipBody.apply {
                 setOnClickListener {
                     setOnChipClickListener(
-                        event =  CatalogEvent.FilterByBody,
+                        event = CatalogEvent.FilterByBody,
                         view = it,
                         id = R.id.chip_body
                     )
@@ -181,24 +182,23 @@ class CatalogFragment : Fragment() {
                 }
             }
 
-           chipMask.apply {
-               setOnClickListener {
-                   setOnChipClickListener(
-                       event =  CatalogEvent.FilterByMask,
-                       view = it,
-                       id = R.id.chip_mask
-                   )
-               }
+            chipMask.apply {
+                setOnClickListener {
+                    setOnChipClickListener(
+                        event = CatalogEvent.FilterByMask,
+                        view = it,
+                        id = R.id.chip_mask
+                    )
+                }
 
-               setOnCloseIconClickListener {
-                   chooseDefaultChip()
-               }
-           }
-
+                setOnCloseIconClickListener {
+                    chooseDefaultChip()
+                }
+            }
 
             chipSuntan.setOnClickListener {
                 setOnChipClickListener(
-                    event =  CatalogEvent.FilterBySuntan,
+                    event = CatalogEvent.FilterBySuntan,
                     view = it,
                     id = R.id.chip_suntan
                 )
@@ -238,8 +238,17 @@ class CatalogFragment : Fragment() {
     }
 
     private fun setOnclickListeners() {
-        binding.appCompatButton.setOnClickListener {
-            viewModel.sendEvent(CatalogEvent.SortListByRating)
+        adapter.onProductItemClick = {
+            replaceFragment(DetailsFragment.newInstance(it))
         }
+        adapter.onAddToFavouriteClick = {
+
+        }
+    }
+
+    companion object {
+        private const val SPINNER_ITEM_BY_RATING = "По популярности"
+        private const val SPINNER_ITEM_BY_PRICE_DESC = "По уменьшению цены"
+        private const val SPINNER_ITEM_BY_PRICE_ASC = "По увеличению цены"
     }
 }

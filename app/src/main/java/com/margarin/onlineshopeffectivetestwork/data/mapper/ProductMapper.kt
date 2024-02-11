@@ -47,6 +47,25 @@ fun ProductDb.toEntity() = Product(
     imageResId = id.parseImageResId()
 )
 
+fun Product.toDbModel() = ProductDb(
+    id = id,
+    title = title,
+    subtitle = subtitle,
+    price = price,
+    discount = discount,
+    priceWithDiscount = priceWithDiscount,
+    unit = unit,
+    count = count,
+    rating = rating,
+    tags = tags,
+    available = available,
+    description = description,
+    info = info,
+    ingredients = ingredients,
+)
+
+fun List<ProductDb>.toEntities(): List<Product> = map { it.toEntity() }
+
 private fun String.parseImageResId(): List<Int> {
     return when(this) {
         "cbf0c984-7c6c-4ada-82da-e29dc698bb50" -> mutableListOf(

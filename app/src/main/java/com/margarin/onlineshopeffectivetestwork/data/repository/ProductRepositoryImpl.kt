@@ -2,6 +2,7 @@ package com.margarin.onlineshopeffectivetestwork.data.repository
 
 import com.margarin.onlineshopeffectivetestwork.data.database.ProductDao
 import com.margarin.onlineshopeffectivetestwork.data.mapper.toDbModel
+import com.margarin.onlineshopeffectivetestwork.data.mapper.toEntities
 import com.margarin.onlineshopeffectivetestwork.data.mapper.toEntity
 import com.margarin.onlineshopeffectivetestwork.data.network.ApiService
 import com.margarin.onlineshopeffectivetestwork.domain.model.Product
@@ -16,9 +17,7 @@ class ProductRepositoryImpl @Inject constructor(
 ) : ProductRepository {
 
     override fun getProductList(): Flow<List<Product>> =
-        productDao.getProductList().map { list ->
-        list.map { it.toEntity() }
-    }
+        productDao.getProductList().map { it.toEntities() }
 
     override suspend fun downloadProductList() {
         try {

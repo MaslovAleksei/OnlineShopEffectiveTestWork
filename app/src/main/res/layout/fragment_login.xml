@@ -14,19 +14,24 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayout_firstname"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
+        android:layout_marginBottom="32dp"
         android:defaultFocusHighlightEnabled="true"
         android:labelFor="@null"
+        app:boxBackgroundColor="@color/light_grey"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:endIconDrawable="@drawable/ic_close"
         app:endIconMode="clear_text"
         app:errorIconDrawable="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/inputLayout_lastname"
+        app:layout_constraintEnd_toEndOf="@+id/inputLayout_lastname"
+        app:layout_constraintStart_toStartOf="@+id/inputLayout_lastname">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputEditText_firstname"
@@ -42,20 +47,24 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayout_lastname"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_margin="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:defaultFocusHighlightEnabled="true"
         android:labelFor="@null"
+        app:boxBackgroundColor="@color/light_grey"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:endIconDrawable="@drawable/ic_close"
         app:endIconMode="clear_text"
         app:errorIconDrawable="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout_firstname">
+        app:layout_constraintBottom_toTopOf="@+id/inputLayout_phone_number"
+        app:layout_constraintEnd_toEndOf="@+id/inputLayout_phone_number"
+        app:layout_constraintStart_toStartOf="@+id/inputLayout_phone_number">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputEditText_lastname"
@@ -71,18 +80,21 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayout_phone_number"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/light_grey"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:endIconDrawable="@drawable/ic_close"
         app:endIconMode="clear_text"
         app:errorIconDrawable="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout_lastname"
+        app:layout_constraintEnd_toEndOf="@+id/b_sign_in"
+        app:layout_constraintStart_toStartOf="@+id/b_sign_in"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
         app:prefixText="+7">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -102,7 +114,8 @@
         android:layout_width="343dp"
         android:layout_height="51dp"
         android:layout_gravity="start"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rect_bgr"
         android:enabled="false"
         android:text="@string/sign_in"
         android:textAllCaps="false"
@@ -110,9 +123,34 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout_phone_number"/>
-    <!--  android:background="@drawable/type_field_" -->
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout_phone_number" />
 
+    <TextView
+        android:id="@+id/tv_loyalty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/loyalty_program"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

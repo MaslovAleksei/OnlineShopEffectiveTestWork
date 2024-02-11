@@ -41,5 +41,6 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun profileDao(): ProfileDao
     abstract fun productDao(): ProductDao
+    abstract fun favouriteDao(): FavouritesDao
 
 }

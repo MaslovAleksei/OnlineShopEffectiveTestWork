@@ -3,6 +3,8 @@ package com.margarin.onlineshopeffectivetestwork.presentation.catalog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.margarin.onlineshopeffectivetestwork.domain.model.Product
+import com.margarin.onlineshopeffectivetestwork.domain.usecase.favourite.ChangeFavouriteStateUseCase
+import com.margarin.onlineshopeffectivetestwork.domain.usecase.favourite.ObserveFavouriteStateUseCase
 import com.margarin.onlineshopeffectivetestwork.domain.usecase.product.DownloadProductListUseCase
 import com.margarin.onlineshopeffectivetestwork.domain.usecase.product.GetProductListUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +18,9 @@ import javax.inject.Inject
 
 class CatalogViewModel @Inject constructor(
     private val getProductListUseCase: GetProductListUseCase,
-    private val downloadProductListUseCase: DownloadProductListUseCase
+    private val downloadProductListUseCase: DownloadProductListUseCase,
+    private val changeFavouriteStateUseCase: ChangeFavouriteStateUseCase,
+    private val observeFavouriteStateUseCase: ObserveFavouriteStateUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CatalogState>(CatalogState.Initial)
@@ -33,6 +37,7 @@ class CatalogViewModel @Inject constructor(
             CatalogEvent.GetProductList -> {
                 viewModelScope.launch {
                     getProductListUseCase.getProductList()
+
                         .onStart { _state.value = CatalogState.Loading }
                         .onEach { _state.value = CatalogState.Content(it) }
                         .filter { it.isEmpty() }

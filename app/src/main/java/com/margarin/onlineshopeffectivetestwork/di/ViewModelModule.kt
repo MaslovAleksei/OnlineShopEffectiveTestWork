@@ -5,6 +5,7 @@ import com.margarin.onlineshopeffectivetestwork.MainViewModel
 import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogViewModel
 import com.margarin.onlineshopeffectivetestwork.presentation.HomeViewModel
 import com.margarin.onlineshopeffectivetestwork.presentation.LoginViewModel
+import com.margarin.onlineshopeffectivetestwork.presentation.favourites.FavouritesViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -31,6 +32,11 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CatalogViewModel::class)
     fun bindCatalogViewModel(viewModel: CatalogViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavouritesViewModel::class)
+    fun bindFavouriteViewModel(viewModel: FavouritesViewModel): ViewModel
 
 
 
