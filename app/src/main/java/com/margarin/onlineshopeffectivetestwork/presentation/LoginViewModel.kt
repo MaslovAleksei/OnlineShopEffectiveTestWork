@@ -3,8 +3,7 @@ package com.margarin.onlineshopeffectivetestwork.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.margarin.onlineshopeffectivetestwork.domain.model.Profile
-import com.margarin.onlineshopeffectivetestwork.domain.usecase.AddProfileUseCase
-import com.margarin.onlineshopeffectivetestwork.domain.usecase.RemoveProfileUseCase
+import com.margarin.onlineshopeffectivetestwork.domain.usecase.profile.AddProfileUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,7 +15,5 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             addProfileUseCase(profile)
         }
-
     }
-
 }

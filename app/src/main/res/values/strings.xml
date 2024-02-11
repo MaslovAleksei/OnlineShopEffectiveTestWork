@@ -1,21 +1,46 @@
 <resources>
+
+
     <string name="app_name">OnlineShopEffectiveTestWork</string>
     <!-- Strings related to login -->
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="name">Name</string>
-    <string name="lastname">Last name</string>
-    <string name="phone_number">Phone number</string>
-    <string name="sign_in">Sign in</string>
-    <string name="login">Login</string>
-    <string name="loyalty_program">Login</string>
-    <string name="text_validation_success">Success</string>
-    <string name="text_validation_error_empty_field">Please fill empty field!</string>
-    <string name="text_validation_error">Please fill in the form correctly!</string>
-    <string name="title_activity_main2">MainActivity2</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_main">MainActivity</string>
+
+    <!--screens -->
+    <string name="login">Вход</string>
+    <string name="main">Главная</string>
+    <string name="catalog">Каталог</string>
+    <string name="cart">Корзина</string>
+    <string name="discounts">Акции</string>
+    <string name="profile">Профиль</string>
+    <string name="favourites">Избранное</string>
+
+    <!--login screen -->
+    <string name="name">Имя</string>
+    <string name="lastname">Фамилия</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="sign_in">Войти</string>
+    <string name="loyalty_program">Нажимая кнопку "Войти", Вы принимаете\n<u>условия программы лояльности</u> </string>
+    <string name="text_validation_success">Успешно</string>
+    <string name="text_validation_error_empty_field">Пожалуйста, заполните текстовое поле!</string>
+    <string name="text_validation_error">Текст может содержать только кириллицу!</string>
+    <string name="phone_mask">+7 (___) ___-__-__</string>
+    <string name="please_enter_full_phone_number">Пожалуйста, введите полный номер телефона!</string>
+
+    <!--catalog screen -->
+    <string-array name="spinner_array">
+        <item>По популярности</item>
+        <item>По увеличению цены</item>
+        <item>По уменьшению цены</item>
+    </string-array>
+    <string name="filters">Фильтры</string>
+    <string name="show_all">Смотреть все</string>
+    <string name="face">Лицо</string>
+    <string name="body">Тело</string>
+    <string name="suntan">Загар</string>
+    <string name="mask">Маска</string>
+    <string name="loading_error">Не удалось загрузить данные. \n Возможо, нет связи с сервером.</string>
+
+
 </resources>

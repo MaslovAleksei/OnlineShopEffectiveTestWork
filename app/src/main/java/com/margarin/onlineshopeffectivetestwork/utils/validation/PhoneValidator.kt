@@ -7,8 +7,14 @@ import com.margarin.onlineshopeffectivetestwork.utils.validation.base.ValidateRe
 class PhoneValidator(val phoneNumber: String) : BaseValidator() {
 
     override fun validate(): ValidateResult {
-
-        return ValidateResult(true, R.string.text_validation_success)
+        val isValid = phoneNumber.length == 10
+        return ValidateResult(
+            isValid,
+            if (isValid) {
+                R.string.text_validation_success
+            } else {
+                R.string.please_enter_full_phone_number
+            }
+        )
     }
-
 }

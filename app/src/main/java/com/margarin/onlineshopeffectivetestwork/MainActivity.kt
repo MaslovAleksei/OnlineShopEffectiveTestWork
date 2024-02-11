@@ -10,12 +10,13 @@ import androidx.lifecycle.lifecycleScope
 import com.margarin.onlineshopeffectivetestwork.databinding.ActivityMainBinding
 import com.margarin.onlineshopeffectivetestwork.domain.model.AuthState
 import com.margarin.onlineshopeffectivetestwork.presentation.CartFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.CatalogFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.DiscountsFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.HomeFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.LoginFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.ProfileFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
+import com.margarin.onlineshopeffectivetestwork.presentation.favourites.FavouritesFragment
 import com.margarin.onlineshopeffectivetestwork.utils.replaceFragment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -44,17 +45,26 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.authState
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                .collect {
-                    when (it) {
+                .collect { authState ->
+                    when (authState) {
                         AuthState.Initial -> {
                         }
 
                         AuthState.Authorized -> {
-                            replaceFragment(HomeFragment())
+                            viewModel.justNowLogged.observe(this@MainActivity){ boolean ->
+                                if (boolean) {
+                                    replaceFragment(HomeFragment())
+                                } else {
+                                    binding.bottomNavigationView.selectedItemId =
+                                        R.id.bottom_menu_catalog
+                                    replaceFragment(CatalogFragment())
+                                }
+                            }
                             binding.bottomNavigationView.visibility = View.VISIBLE
                         }
 
                         AuthState.NotAuthorized -> {
+                            viewModel.changeJustNowLoggedState(true)
                             replaceFragment(LoginFragment())
                             binding.bottomNavigationView.visibility = View.GONE
                         }
@@ -64,29 +74,42 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onNavigationItemSelectedListener() {
+        var currentPageId = -1
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.bottom_menu_home -> {
-                    replaceFragment(HomeFragment())
-                }
+            if (currentPageId == item.itemId) {
+                return@setOnItemSelectedListener false
+            } else {
+                when (item.itemId) {
+                    R.id.bottom_menu_home -> {
+                        currentPageId = item.itemId
+                        replaceFragment(HomeFragment())
+                    }
 
-                R.id.bottom_menu_catalog -> {
-                    replaceFragment(CatalogFragment())
-                }
+                    R.id.bottom_menu_catalog -> {
+                        currentPageId = item.itemId
+                        replaceFragment(CatalogFragment())
+                    }
 
-                R.id.bottom_menu_cart -> {
-                    replaceFragment(CartFragment())
-                }
+                    R.id.bottom_menu_cart -> {
+                        currentPageId = item.itemId
+                        replaceFragment(CartFragment())
+                    }
 
-                R.id.bottom_menu_discounts -> {
-                    replaceFragment(DiscountsFragment())
-                }
+                    R.id.bottom_menu_discounts -> {
+                        currentPageId = item.itemId
+                        //replaceFragment(DiscountsFragment())
+                        replaceFragment(FavouritesFragment())
+                    }
 
-                R.id.bottom_menu_profile -> {
-                    replaceFragment(ProfileFragment())
+                    R.id.bottom_menu_profile -> {
+                        currentPageId = item.itemId
+                        replaceFragment(ProfileFragment())
+                    }
                 }
+                true
             }
-            true
         }
+
+        binding.bottomNavigationView.menu.findItem(binding.bottomNavigationView.selectedItemId)
     }
 }

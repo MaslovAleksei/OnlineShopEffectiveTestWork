@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.parcelize)
 }
 
 android {
@@ -41,6 +42,8 @@ android {
 }
 
 dependencies {
+
+    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.0")
 
     implementation(libs.dagger.core)
     ksp(libs.dagger.compiler)

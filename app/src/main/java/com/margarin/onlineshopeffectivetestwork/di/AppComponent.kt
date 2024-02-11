@@ -3,8 +3,10 @@ package com.margarin.onlineshopeffectivetestwork.di
 import android.content.Context
 import com.margarin.onlineshopeffectivetestwork.MainActivity
 import com.margarin.onlineshopeffectivetestwork.ShopApp
+import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.HomeFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.LoginFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.favourites.FavouritesFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -19,10 +21,13 @@ interface AppComponent {
 
     fun inject(application: ShopApp)
 
+    fun inject(activity: MainActivity)
+
     fun inject(fragment: LoginFragment)
     fun inject(fragment: HomeFragment)
+    fun inject(fragment: CatalogFragment)
+    fun inject(fragment: FavouritesFragment)
 
-    fun inject(activity: MainActivity)
 
     @Component.Factory
     interface Factory {

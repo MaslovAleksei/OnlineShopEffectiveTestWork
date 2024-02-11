@@ -6,12 +6,12 @@ import com.margarin.onlineshopeffectivetestwork.domain.model.Profile
 fun Profile.toDbModel() = ProfileDb(
     id = 0,
     firstName = firstName,
-    secondName = secondName,
+    lastName = lastName,
     phoneNumber = phoneNumber
 )
 
 fun ProfileDb.toEntity() = Profile(
     firstName = firstName,
-    secondName = secondName,
+    lastName = lastName,
     phoneNumber = phoneNumber
 )

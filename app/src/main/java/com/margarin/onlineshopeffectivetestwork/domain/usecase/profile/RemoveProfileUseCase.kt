@@ -1,4 +1,4 @@
-package com.margarin.onlineshopeffectivetestwork.domain.usecase
+package com.margarin.onlineshopeffectivetestwork.domain.usecase.profile
 
 import com.margarin.onlineshopeffectivetestwork.domain.repository.ProfileRepository
 import javax.inject.Inject

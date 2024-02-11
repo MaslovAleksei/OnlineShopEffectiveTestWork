@@ -1,59 +1,75 @@
 package com.margarin.onlineshopeffectivetestwork.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.margarin.onlineshopeffectivetestwork.R
+import androidx.fragment.app.Fragment
+import com.denzcoskun.imageslider.models.SlideModel
+import com.margarin.onlineshopeffectivetestwork.databinding.FragmentDetailsBinding
+import com.margarin.onlineshopeffectivetestwork.domain.model.Product
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var product: Product? = null
+
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding: FragmentDetailsBinding
+        get() = _binding ?: throw RuntimeException("Binding == null")
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            product = it.getParcelable(ITEM_PARAM)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details, container, false)
+    ): View {
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        parseProductInfo()
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
+    private fun parseProductInfo() {
+        with(binding) {
+            val imageList = ArrayList<SlideModel>()
+            product?.imageResId?.forEach {
+                imageList.add(SlideModel(imagePath = it))
+            }
+            itemImageSlider.setImageList(imageList)
+            tvTitle.text = product?.title
+            tvSubtitle.text = product?.subtitle
+            tvAvailable.text = product?.available.toString()
+            tvRating.text = product?.rating.toString()
+            tvFeedbackCount.text = product?.count.toString()
+            bToBrand.text = product?.title
+            tvDescription.text = product?.description
+            tvCompound.text = product?.ingredients
+
+
+        }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        private const val ITEM_PARAM = "ITEM_PARAM"
+
+        fun newInstance(product: Product) =
             DetailsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putParcelable(ITEM_PARAM, product)
                 }
             }
     }
