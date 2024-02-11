@@ -3,7 +3,6 @@ package com.margarin.onlineshopeffectivetestwork.utils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.margarin.onlineshopeffectivetestwork.R
-import com.margarin.onlineshopeffectivetestwork.presentation.DetailsFragment
 
 fun AppCompatActivity.replaceFragment(fragment: Fragment) {
     supportFragmentManager

@@ -3,7 +3,7 @@ package com.margarin.onlineshopeffectivetestwork.data.database.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "products")
+@Entity(tableName = "favourites")
 data class ProductDb(
     @PrimaryKey
     val id: String,

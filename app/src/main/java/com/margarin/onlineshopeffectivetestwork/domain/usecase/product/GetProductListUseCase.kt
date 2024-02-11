@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetProductListUseCase @Inject constructor(
     private val searchRepository: ProductRepository
 ) {
-    fun getProductList() = searchRepository.getProductList()
+    suspend fun getProductList() = searchRepository.getProductList()
 }

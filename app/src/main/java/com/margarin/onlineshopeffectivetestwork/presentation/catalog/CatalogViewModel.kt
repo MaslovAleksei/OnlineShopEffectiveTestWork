@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.margarin.onlineshopeffectivetestwork.domain.model.Product
 import com.margarin.onlineshopeffectivetestwork.domain.usecase.favourite.ChangeFavouriteStateUseCase
 import com.margarin.onlineshopeffectivetestwork.domain.usecase.favourite.ObserveFavouriteStateUseCase
-import com.margarin.onlineshopeffectivetestwork.domain.usecase.product.DownloadProductListUseCase
 import com.margarin.onlineshopeffectivetestwork.domain.usecase.product.GetProductListUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
@@ -18,7 +18,6 @@ import javax.inject.Inject
 
 class CatalogViewModel @Inject constructor(
     private val getProductListUseCase: GetProductListUseCase,
-    private val downloadProductListUseCase: DownloadProductListUseCase,
     private val changeFavouriteStateUseCase: ChangeFavouriteStateUseCase,
     private val observeFavouriteStateUseCase: ObserveFavouriteStateUseCase
 ) : ViewModel() {
@@ -26,16 +25,10 @@ class CatalogViewModel @Inject constructor(
     private val _state = MutableStateFlow<CatalogState>(CatalogState.Initial)
     val state = _state.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            downloadProductListUseCase()
-        }
-    }
-
     fun sendEvent(event: CatalogEvent) {
         when (event) {
             CatalogEvent.GetProductList -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
                     getProductListUseCase.getProductList()
 
                         .onStart { _state.value = CatalogState.Loading }
@@ -73,7 +66,7 @@ class CatalogViewModel @Inject constructor(
             }
 
             CatalogEvent.FilterByBody -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
                     getProductListUseCase.getProductList()
                         .onStart { _state.value = CatalogState.Loading }
                         .transform {
@@ -92,7 +85,7 @@ class CatalogViewModel @Inject constructor(
             }
 
             CatalogEvent.FilterByFace -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
                     getProductListUseCase.getProductList()
                         .onStart { _state.value = CatalogState.Loading }
                         .transform {
@@ -111,7 +104,7 @@ class CatalogViewModel @Inject constructor(
             }
 
             CatalogEvent.FilterByMask -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
                     getProductListUseCase.getProductList()
                         .onStart { _state.value = CatalogState.Loading }
                         .transform {
@@ -130,7 +123,7 @@ class CatalogViewModel @Inject constructor(
             }
 
             CatalogEvent.FilterBySuntan -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
                     getProductListUseCase.getProductList()
                         .onStart { _state.value = CatalogState.Loading }
                         .transform {
@@ -145,6 +138,12 @@ class CatalogViewModel @Inject constructor(
                         .onEach { _state.value = CatalogState.Content(it) }
                         .filter { it.isEmpty() }
                         .collect { _state.value = CatalogState.Error }
+                }
+            }
+
+            is CatalogEvent.ChangeFavouriteStatus -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    changeFavouriteStateUseCase.addToFavourite(event.product)
                 }
             }
         }

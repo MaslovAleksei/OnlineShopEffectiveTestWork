@@ -8,7 +8,7 @@ interface ProfileRepository {
 
     fun getAuthStateFlow(): StateFlow<AuthState>
 
-    suspend fun getProfile(): Profile?
+    suspend fun getProfile(): Profile
 
     suspend fun addProfile(profile: Profile)
 

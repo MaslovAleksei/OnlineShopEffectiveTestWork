@@ -7,8 +7,8 @@ import com.margarin.onlineshopeffectivetestwork.domain.usecase.profile.GetAuthSt
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val getAuthStateFlowUseCase: GetAuthStateFlowUseCase
-): ViewModel() {
+    getAuthStateFlowUseCase: GetAuthStateFlowUseCase
+) : ViewModel() {
 
     val authState = getAuthStateFlowUseCase()
 

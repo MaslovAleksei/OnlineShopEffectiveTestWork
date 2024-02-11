@@ -2,7 +2,6 @@ package com.margarin.onlineshopeffectivetestwork.presentation.catalog
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +17,7 @@ import com.google.android.material.chip.Chip
 import com.margarin.onlineshopeffectivetestwork.R
 import com.margarin.onlineshopeffectivetestwork.ShopApp
 import com.margarin.onlineshopeffectivetestwork.databinding.FragmentCatalogBinding
-import com.margarin.onlineshopeffectivetestwork.presentation.DetailsFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.details.DetailsFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
 import com.margarin.onlineshopeffectivetestwork.presentation.adapter.ProductAdapter
 import com.margarin.onlineshopeffectivetestwork.utils.replaceFragment
@@ -77,7 +76,6 @@ class CatalogFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
     override fun onItemSelected(parent: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-        Log.d("tag", parent?.getItemAtPosition(position).toString())
         when (parent?.getItemAtPosition(position)) {
             SPINNER_ITEM_BY_RATING -> {
                 viewModel.sendEvent(CatalogEvent.SortListByRating)
@@ -242,7 +240,7 @@ class CatalogFragment : Fragment(), AdapterView.OnItemSelectedListener {
             replaceFragment(DetailsFragment.newInstance(it))
         }
         adapter.onAddToFavouriteClick = {
-
+            viewModel.sendEvent(CatalogEvent.ChangeFavouriteStatus(it))
         }
     }
 

@@ -33,7 +33,7 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override fun getAuthStateFlow(): StateFlow<AuthState> = authStateFlow
 
-    override suspend fun getProfile(): Profile? = profileDao.getProfile()?.toEntity()
+    override suspend fun getProfile(): Profile = profileDao.getProfile().toEntity()
 
     override suspend fun addProfile(profile: Profile) {
         profileDao.addProfile(profile.toDbModel())

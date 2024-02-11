@@ -13,13 +13,13 @@ interface FavouritesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addToFavourite(product: ProductDb)
 
-    @Query("SELECT * FROM products")
+    @Query("SELECT * FROM favourites")
     fun getFavouriteProducts(): Flow<List<ProductDb>>
 
-    @Query("SELECT EXISTS (SELECT * FROM products WHERE id=:itemId LIMIT 1)")
+    @Query("SELECT EXISTS (SELECT * FROM favourites WHERE id=:itemId LIMIT 1)")
     fun observeIsFavourite(itemId: String) : Flow<Boolean>
 
-    @Query("DELETE FROM products WHERE id=:itemId")
+    @Query("DELETE FROM favourites WHERE id=:itemId")
     suspend fun removeFromFavourites(itemId: String)
 
 }

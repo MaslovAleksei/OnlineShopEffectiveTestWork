@@ -1,4 +1,4 @@
-package com.margarin.onlineshopeffectivetestwork.presentation
+package com.margarin.onlineshopeffectivetestwork.presentation.login
 
 import android.content.Context
 import android.os.Bundle
@@ -13,6 +13,7 @@ import com.margarin.onlineshopeffectivetestwork.R
 import com.margarin.onlineshopeffectivetestwork.ShopApp
 import com.margarin.onlineshopeffectivetestwork.databinding.FragmentLoginBinding
 import com.margarin.onlineshopeffectivetestwork.domain.model.Profile
+import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
 import com.margarin.onlineshopeffectivetestwork.utils.validation.EmptyValidator
 import com.margarin.onlineshopeffectivetestwork.utils.validation.NameValidator
 import com.margarin.onlineshopeffectivetestwork.utils.validation.PhoneValidator

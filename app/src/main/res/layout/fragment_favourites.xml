@@ -8,12 +8,13 @@
     tools:context=".presentation.favourites.FavouritesFragment">
 
     <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/b_back"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:tint="@color/black"
         android:background="@null"
         android:src="@drawable/ic_arrow_back"
+        android:tint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -21,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/favourites"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,5 +39,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_favourites" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_items"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

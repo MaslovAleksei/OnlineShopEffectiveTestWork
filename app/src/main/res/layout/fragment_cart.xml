@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/fragment_vertical_margin"
     android:paddingRight="@dimen/fragment_horizontal_margin"
     android:paddingBottom="@dimen/fragment_vertical_margin"
-    tools:context=".presentation.CartFragment">
+    tools:context=".presentation.unusedfragments.CartFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -16,6 +16,8 @@
         android:layout_height="wrap_content"
         android:text="@string/cart"
         android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
