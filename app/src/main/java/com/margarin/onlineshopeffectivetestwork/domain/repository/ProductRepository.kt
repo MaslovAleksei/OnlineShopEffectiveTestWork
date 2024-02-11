@@ -5,10 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {
 
-    fun getProductList(): Flow<List<Product>>
-
-    suspend fun downloadProductList()
-
-    suspend fun getProductItem(productId: String): Product
-
+    suspend fun getProductList(): Flow<List<Product>>
 }

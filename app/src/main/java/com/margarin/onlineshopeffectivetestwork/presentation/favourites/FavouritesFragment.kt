@@ -13,11 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.margarin.onlineshopeffectivetestwork.ShopApp
 import com.margarin.onlineshopeffectivetestwork.databinding.FragmentFavouritesBinding
-import com.margarin.onlineshopeffectivetestwork.presentation.DetailsFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.details.DetailsFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
 import com.margarin.onlineshopeffectivetestwork.presentation.adapter.ProductAdapter
-import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogState
-import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogViewModel
 import com.margarin.onlineshopeffectivetestwork.utils.replaceFragment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -57,6 +55,9 @@ class FavouritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         configureRecyclerView()
+        observeViewModel()
+        viewModel.sendEvent(FavouritesEvent.GetFavouriteList)
+        setOnclickListeners()
     }
 
     override fun onDestroyView() {
@@ -68,6 +69,7 @@ class FavouritesFragment : Fragment() {
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         adapter = ProductAdapter()
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.animation = null
     }
 
     private fun observeViewModel() {
@@ -79,12 +81,12 @@ class FavouritesFragment : Fragment() {
                         is FavouritesState.Content -> {
                             adapter.submitList(it.products)
                             binding.recyclerView.visibility = View.VISIBLE
-                           // binding.tvLoadingError.visibility = View.GONE
+                            binding.tvError.visibility = View.GONE
                         }
 
-                        is FavouritesState.NoData -> {
+                        is FavouritesState.NoItems -> {
                             binding.recyclerView.visibility = View.GONE
-                           // binding.tvLoadingError.visibility = View.VISIBLE
+                            binding.tvError.visibility = View.VISIBLE
                         }
 
                         is FavouritesState.Initial -> {}
@@ -94,8 +96,14 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun setOnclickListeners() {
+        adapter.onProductItemClick = {
+            replaceFragment(DetailsFragment.newInstance(it))
+        }
         adapter.onAddToFavouriteClick = {
-
+            viewModel.sendEvent(FavouritesEvent.ChangeFavouriteStatus(it))
+        }
+        binding.bBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 }

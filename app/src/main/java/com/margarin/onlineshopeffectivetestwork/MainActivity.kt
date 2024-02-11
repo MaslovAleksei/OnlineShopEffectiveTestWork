@@ -9,14 +9,13 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.margarin.onlineshopeffectivetestwork.databinding.ActivityMainBinding
 import com.margarin.onlineshopeffectivetestwork.domain.model.AuthState
-import com.margarin.onlineshopeffectivetestwork.presentation.CartFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.DiscountsFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.HomeFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.LoginFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.ProfileFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
-import com.margarin.onlineshopeffectivetestwork.presentation.favourites.FavouritesFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.login.LoginFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.profile.ProfileFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.unusedfragments.CartFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.unusedfragments.DiscountsFragment
+import com.margarin.onlineshopeffectivetestwork.presentation.unusedfragments.HomeFragment
 import com.margarin.onlineshopeffectivetestwork.utils.replaceFragment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -97,8 +96,7 @@ class MainActivity : AppCompatActivity() {
 
                     R.id.bottom_menu_discounts -> {
                         currentPageId = item.itemId
-                        //replaceFragment(DiscountsFragment())
-                        replaceFragment(FavouritesFragment())
+                        replaceFragment(DiscountsFragment())
                     }
 
                     R.id.bottom_menu_profile -> {
@@ -109,7 +107,6 @@ class MainActivity : AppCompatActivity() {
                 true
             }
         }
-
         binding.bottomNavigationView.menu.findItem(binding.bottomNavigationView.selectedItemId)
     }
 }

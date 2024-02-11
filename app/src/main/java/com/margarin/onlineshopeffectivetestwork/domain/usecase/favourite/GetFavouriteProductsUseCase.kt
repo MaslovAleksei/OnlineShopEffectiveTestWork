@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetFavouriteProductsUseCase  @Inject constructor(
     private val repository: FavouriteRepository
 ) {
-    operator fun invoke() = repository.favouriteProducts
+    operator fun invoke() = repository.getFavouriteProducts()
 }

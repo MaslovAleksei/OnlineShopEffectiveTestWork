@@ -14,7 +14,7 @@ interface ProfileDao {
     fun observeIsAuthorized() : Flow<Boolean>
 
     @Query("SELECT * FROM profiles WHERE id=0")
-    fun getProfile() : ProfileDb?
+    fun getProfile() : ProfileDb
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addProfile(profile: ProfileDb)

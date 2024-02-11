@@ -7,11 +7,18 @@ import androidx.recyclerview.widget.ListAdapter
 import com.denzcoskun.imageslider.models.SlideModel
 import com.margarin.onlineshopeffectivetestwork.databinding.ProductItemBinding
 import com.margarin.onlineshopeffectivetestwork.domain.model.Product
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class ProductAdapter : ListAdapter<Product, ProductHolder>(ProductDiffCallback()) {
+class ProductAdapter @Inject constructor(
+    //private val observeFavouriteStateUseCase: ObserveFavouriteStateUseCase
+) : ListAdapter<Product, ProductHolder>(ProductDiffCallback()) {
 
     var onAddToFavouriteClick: ((Product) -> Unit)? = null
     var onProductItemClick: ((Product) -> Unit)? = null
+
+    val scope = CoroutineScope(Dispatchers.IO)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductHolder {
 
@@ -35,6 +42,12 @@ class ProductAdapter : ListAdapter<Product, ProductHolder>(ProductDiffCallback()
             }
             itemImageSlider.setImageList(imageList)
 
+//            scope.launch {
+//                observeFavouriteStateUseCase(productId = item.id).collect {
+//                    val iconLike = if (it) R.drawable.ic_like_filled else R.drawable.ic_like_border
+//                    imageButtonAddFavourite.setImageResource(iconLike)
+//                }
+//            }
             tvOldPrice.paintFlags = tvOldPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             val oldPrice = "${item.price} ₽"
             tvOldPrice.text = oldPrice

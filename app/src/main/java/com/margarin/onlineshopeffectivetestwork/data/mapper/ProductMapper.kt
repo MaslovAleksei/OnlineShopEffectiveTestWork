@@ -29,6 +29,31 @@ fun ProductDto.toDbModel(): ProductDb {
     )
 }
 
+fun ProductDto.toEntity(): Product {
+    val infoList = mutableListOf<Pair<String, String>>()
+    info.forEach{
+        val pairInfo = Pair(it.title, it.value)
+        infoList.add(pairInfo)
+    }
+    return Product(
+        id = id,
+        title = title,
+        subtitle = subtitle,
+        price = price.price,
+        discount = price.discount,
+        priceWithDiscount = price.priceWithDiscount.toInt(),
+        unit = price.unit,
+        count = feedback.count,
+        rating = feedback.rating,
+        tags = tags,
+        available = available,
+        description = description,
+        info = infoList,
+        ingredients = ingredients,
+        imageResId = id.parseImageResId()
+    )
+}
+
 fun ProductDb.toEntity() = Product(
     id = id,
     title = title,

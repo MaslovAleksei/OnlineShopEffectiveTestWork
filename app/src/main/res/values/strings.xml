@@ -42,5 +42,21 @@
     <string name="mask">Маска</string>
     <string name="loading_error">Не удалось загрузить данные. \n Возможо, нет связи с сервером.</string>
 
+    <!--profile screen -->
+    <string name="cabinet">Личный кабинет</string>
+    <string name="shops">Магазины</string>
+    <string name="Support">Обратная связь</string>
+    <string name="license">Оферта</string>
+    <string name="refund">Возврат товара</string>
+    <string name="exit">Выйти</string>
+    <string name="no_items">Нет добавленных товаров</string>
+
+    <!--details screen -->
+    <string name="hide">Скрыть</string>
+    <string name="description">Описание</string>
+    <string name="parameters">Характеристики</string>
+    <string name="more">Подробнее</string>
+    <string name="add_to_card">Добавить в корзину</string>
+
 
 </resources>

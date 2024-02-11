@@ -3,9 +3,10 @@ package com.margarin.onlineshopeffectivetestwork.di
 import androidx.lifecycle.ViewModel
 import com.margarin.onlineshopeffectivetestwork.MainViewModel
 import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogViewModel
-import com.margarin.onlineshopeffectivetestwork.presentation.HomeViewModel
-import com.margarin.onlineshopeffectivetestwork.presentation.LoginViewModel
+import com.margarin.onlineshopeffectivetestwork.presentation.details.DetailsViewModel
 import com.margarin.onlineshopeffectivetestwork.presentation.favourites.FavouritesViewModel
+import com.margarin.onlineshopeffectivetestwork.presentation.login.LoginViewModel
+import com.margarin.onlineshopeffectivetestwork.presentation.profile.ProfileViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -20,8 +21,8 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(HomeViewModel::class)
-    fun bindHomeViewModel(viewModel: HomeViewModel): ViewModel
+    @ViewModelKey(ProfileViewModel::class)
+    fun bindProfileViewModel(viewModel: ProfileViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -37,6 +38,11 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(FavouritesViewModel::class)
     fun bindFavouriteViewModel(viewModel: FavouritesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    fun bindDetailsViewModel(viewModel: DetailsViewModel): ViewModel
 
 
 

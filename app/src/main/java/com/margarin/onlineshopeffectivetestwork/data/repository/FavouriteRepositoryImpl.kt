@@ -13,7 +13,7 @@ class FavouriteRepositoryImpl @Inject constructor(
     private val favouriteDao: FavouritesDao
 ) : FavouriteRepository {
 
-    override val favouriteProducts: Flow<List<Product>> = favouriteDao.getFavouriteProducts()
+    override fun getFavouriteProducts(): Flow<List<Product>> = favouriteDao.getFavouriteProducts()
         .map { it.toEntities() }
 
     override fun observeIsFavourite(productId: String): Flow<Boolean> =

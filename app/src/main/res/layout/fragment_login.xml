@@ -5,11 +5,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/fragment_horizontal_margin"
-    android:paddingTop="@dimen/fragment_vertical_margin"
-    android:paddingRight="@dimen/fragment_horizontal_margin"
-    android:paddingBottom="@dimen/fragment_vertical_margin"
-    tools:context=".presentation.LoginFragment">
+    android:padding="16dp"
+    tools:context=".presentation.login.LoginFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayout_firstname"
@@ -141,6 +138,8 @@
         android:layout_height="wrap_content"
         android:text="@string/login"
         android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
