@@ -40,7 +40,6 @@ android {
 dependencies {
 
     implementation(project (":domain"))
-    implementation(project (":data"))
     implementation(project (":core"))
 
     implementation(libs.dagger.core)
