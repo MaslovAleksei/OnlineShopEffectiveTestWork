@@ -57,7 +57,7 @@ class FavouritesFragment : Fragment() {
         configureRecyclerView()
         observeViewModel()
         viewModel.sendEvent(FavouritesEvent.GetFavouriteList)
-        setOnclickListeners()
+        setOnClickListeners()
     }
 
     override fun onDestroyView() {
@@ -95,7 +95,7 @@ class FavouritesFragment : Fragment() {
         }
     }
 
-    private fun setOnclickListeners() {
+    private fun setOnClickListeners() {
         adapter.onProductItemClick = {
             replaceFragment(DetailsFragment.newInstance(it))
         }

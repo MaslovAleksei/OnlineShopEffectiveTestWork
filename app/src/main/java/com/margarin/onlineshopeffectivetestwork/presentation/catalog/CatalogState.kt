@@ -8,15 +8,7 @@ sealed class CatalogState {
     data object Error : CatalogState()
     data object Loading : CatalogState()
     data object Initial : CatalogState()
-
-    data class Content(val products: List<Product>) : CatalogState()// {
-//
-//        data class ProductItem(
-//            val product: Product,
-//            val isFavourite: Boolean
-//        )
-//    }
-
+    data class Content(val products: List<Product>) : CatalogState()
 
 }
 

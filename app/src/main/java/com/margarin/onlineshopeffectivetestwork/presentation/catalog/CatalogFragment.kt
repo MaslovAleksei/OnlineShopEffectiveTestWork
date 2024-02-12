@@ -241,6 +241,7 @@ class CatalogFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
         adapter.onAddToFavouriteClick = {
             viewModel.sendEvent(CatalogEvent.ChangeFavouriteStatus(it))
+            viewModel.sendEvent(CatalogEvent.GetProductList)
         }
     }
 

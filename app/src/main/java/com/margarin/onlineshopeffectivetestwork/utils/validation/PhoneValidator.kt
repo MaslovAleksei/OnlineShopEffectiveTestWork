@@ -4,7 +4,7 @@ import com.margarin.onlineshopeffectivetestwork.R
 import com.margarin.onlineshopeffectivetestwork.utils.validation.base.BaseValidator
 import com.margarin.onlineshopeffectivetestwork.utils.validation.base.ValidateResult
 
-class PhoneValidator(val phoneNumber: String) : BaseValidator() {
+class PhoneValidator(private val phoneNumber: String) : BaseValidator() {
 
     override fun validate(): ValidateResult {
         val isValid = phoneNumber.length == 10

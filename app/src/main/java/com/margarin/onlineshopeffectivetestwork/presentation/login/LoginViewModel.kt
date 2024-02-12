@@ -12,8 +12,13 @@ class LoginViewModel @Inject constructor(
     private val addProfileUseCase: AddProfileUseCase
 ): ViewModel()  {
 
-    fun add(profile: Profile) {
+    fun addProfile(firstName: String, lastName: String, phoneNumber: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            val profile = Profile(
+                firstName = firstName,
+                lastName = lastName,
+                phoneNumber = phoneNumber
+            )
             addProfileUseCase(profile)
         }
     }
