@@ -19,5 +19,6 @@ data class ProductDb(
     val available: Int,
     val description: String,
     val info: List<Pair<String, String>>,
-    val ingredients: String
+    val ingredients: String,
+    val isFavourite: Boolean = true
 )

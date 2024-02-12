@@ -50,8 +50,10 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         AuthState.Authorized -> {
-                            viewModel.justNowLogged.observe(this@MainActivity){ boolean ->
+                            viewModel.justNowLogged.observe(this@MainActivity) { boolean ->
                                 if (boolean) {
+                                    binding.bottomNavigationView.selectedItemId =
+                                        R.id.bottom_menu_home
                                     replaceFragment(HomeFragment())
                                 } else {
                                     binding.bottomNavigationView.selectedItemId =

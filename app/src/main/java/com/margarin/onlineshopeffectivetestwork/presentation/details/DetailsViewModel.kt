@@ -2,8 +2,8 @@ package com.margarin.onlineshopeffectivetestwork.presentation.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.margarin.onlineshopeffectivetestwork.domain.usecase.favourite.ChangeFavouriteStateUseCase
-import com.margarin.onlineshopeffectivetestwork.domain.usecase.favourite.ObserveFavouriteStateUseCase
+import com.margarin.onlineshopeffectivetestwork.domain.usecase.product.ChangeFavouriteStateUseCase
+import com.margarin.onlineshopeffectivetestwork.domain.usecase.product.ObserveFavouriteStateUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

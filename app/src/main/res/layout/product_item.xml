@@ -27,10 +27,10 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="8dp"
-            android:tint="@color/pink"
             android:layout_marginEnd="8dp"
             android:background="@null"
-            android:src="@drawable/ic_like_border"
+            android:src="@drawable/ic_like_filled"
+            android:tint="@color/pink"
             app:layout_constraintEnd_toEndOf="@+id/item_image_slider"
             app:layout_constraintTop_toTopOf="parent" />
 

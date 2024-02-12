@@ -19,5 +19,6 @@ data class Product(
     val description: String,
     val info: List<Pair<String, String>>,
     val ingredients: String,
-    val imageResId: List<Int>
+    val imageResId: List<Int>,
+    val isFavourite: Boolean = false
 ): Parcelable

@@ -12,9 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.margarin.onlineshopeffectivetestwork.R
 import com.margarin.onlineshopeffectivetestwork.ShopApp
 import com.margarin.onlineshopeffectivetestwork.databinding.FragmentLoginBinding
-import com.margarin.onlineshopeffectivetestwork.domain.model.Profile
 import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
-import com.margarin.onlineshopeffectivetestwork.utils.validation.EmptyValidator
 import com.margarin.onlineshopeffectivetestwork.utils.validation.NameValidator
 import com.margarin.onlineshopeffectivetestwork.utils.validation.PhoneValidator
 import com.margarin.onlineshopeffectivetestwork.utils.validation.base.BaseValidator
@@ -28,7 +26,6 @@ class LoginFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
     }
-
 
     private var _binding: FragmentLoginBinding? = null
     private val binding: FragmentLoginBinding
@@ -55,11 +52,10 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListeners()
-
         setTextWatchers()
 
-        binding.inputEditTextPhoneNumber.setOnFocusChangeListener { _, boolean ->
-            binding.inputLayoutPhoneNumber.hint = if (boolean) {
+        binding.inputEditTextPhoneNumber.setOnFocusChangeListener { _, isFocused ->
+            binding.inputLayoutPhoneNumber.hint = if (isFocused) {
                 getString(R.string.phone_mask)
             } else {
                 getString(R.string.phone_number)
@@ -75,17 +71,18 @@ class LoginFragment : Fragment() {
     private fun setOnClickListeners() {
 
         binding.bSignIn.setOnClickListener {
+            val firstName = binding.inputEditTextFirstname.text.toString().replaceFirstChar {
+                it.uppercase()
+            }
+            val lastName = binding.inputEditTextLastname.text.toString().replaceFirstChar {
+                it.uppercase()
+            }
+            val phoneNumber = "7${binding.inputEditTextPhoneNumber.text.toString()}"
 
-            viewModel.add(
-                Profile(
-                    firstName = binding.inputEditTextFirstname.text.toString().replaceFirstChar {
-                        it.uppercase()
-                    },
-                    lastName = binding.inputEditTextLastname.text.toString().replaceFirstChar {
-                        it.uppercase()
-                    },
-                    phoneNumber = "7${binding.inputEditTextPhoneNumber.text.toString()}"
-                )
+            viewModel.addProfile(
+                firstName = firstName,
+                lastName = lastName,
+                phoneNumber = phoneNumber
             )
         }
     }
@@ -116,9 +113,7 @@ class LoginFragment : Fragment() {
             override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 val string = charSequence.toString()
                 if (string.isNotEmpty()) {
-                    val nameValidations = BaseValidator.validate(
-                        EmptyValidator(string), NameValidator(string)
-                    )
+                    val nameValidations = BaseValidator.validate(NameValidator(string))
                     binding.inputLayoutFirstname.error =
                         if (!nameValidations.isSuccess) {
                             getString(nameValidations.message)
@@ -145,9 +140,7 @@ class LoginFragment : Fragment() {
                 val string = charSequence.toString()
                 if (string.isNotEmpty()) {
 
-                    val nameValidations = BaseValidator.validate(
-                        EmptyValidator(string), NameValidator(string)
-                    )
+                    val nameValidations = BaseValidator.validate(NameValidator(string))
                     binding.inputLayoutLastname.error =
                         if (!nameValidations.isSuccess) {
                             getString(nameValidations.message)
@@ -186,9 +179,7 @@ class LoginFragment : Fragment() {
                         return
                     }
 
-                    val phoneNumberValidations = BaseValidator.validate(
-                        EmptyValidator(string), PhoneValidator(string)
-                    )
+                    val phoneNumberValidations = BaseValidator.validate(PhoneValidator(string))
                     binding.inputLayoutPhoneNumber.error =
                         if (!phoneNumberValidations.isSuccess) {
                             getString(phoneNumberValidations.message)

@@ -6,10 +6,8 @@ import com.margarin.onlineshopeffectivetestwork.data.database.FavouritesDao
 import com.margarin.onlineshopeffectivetestwork.data.database.ProfileDao
 import com.margarin.onlineshopeffectivetestwork.data.network.ApiFactory
 import com.margarin.onlineshopeffectivetestwork.data.network.ApiService
-import com.margarin.onlineshopeffectivetestwork.data.repository.FavouriteRepositoryImpl
 import com.margarin.onlineshopeffectivetestwork.data.repository.ProductRepositoryImpl
 import com.margarin.onlineshopeffectivetestwork.data.repository.ProfileRepositoryImpl
-import com.margarin.onlineshopeffectivetestwork.domain.repository.FavouriteRepository
 import com.margarin.onlineshopeffectivetestwork.domain.repository.ProductRepository
 import com.margarin.onlineshopeffectivetestwork.domain.repository.ProfileRepository
 import dagger.Binds
@@ -26,10 +24,6 @@ interface DataModule {
     @Binds
     @AppScope
     fun bindProductRepository(impl: ProductRepositoryImpl): ProductRepository
-
-    @Binds
-    @AppScope
-    fun bindFavouriteRepository(impl: FavouriteRepositoryImpl): FavouriteRepository
 
     companion object {
 

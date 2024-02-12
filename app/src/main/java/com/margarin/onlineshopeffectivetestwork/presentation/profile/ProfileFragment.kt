@@ -14,8 +14,8 @@ import com.margarin.onlineshopeffectivetestwork.ShopApp
 import com.margarin.onlineshopeffectivetestwork.databinding.FragmentProfileBinding
 import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
 import com.margarin.onlineshopeffectivetestwork.presentation.createStringCountOfFavourites
-import com.margarin.onlineshopeffectivetestwork.presentation.favourites.FavouritesFragment
-import com.margarin.onlineshopeffectivetestwork.utils.replaceFragment
+import com.margarin.onlineshopeffectivetestwork.utils.REFERENCE_FAVOURITE_FRAGMENT
+import com.margarin.onlineshopeffectivetestwork.utils.replaceFragmentInOtherModule
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -95,8 +95,7 @@ class ProfileFragment : Fragment() {
             viewModel.sendEvent(ProfileEvent.RemoveProfileUseCase)
         }
         binding.cardFavourites.setOnClickListener {
-            replaceFragment(FavouritesFragment())
+            replaceFragmentInOtherModule(REFERENCE_FAVOURITE_FRAGMENT)
         }
     }
-
 }

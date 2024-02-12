@@ -3,13 +3,15 @@ package com.margarin.onlineshopeffectivetestwork.presentation.catalog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.margarin.onlineshopeffectivetestwork.domain.model.Product
-import com.margarin.onlineshopeffectivetestwork.domain.usecase.favourite.ChangeFavouriteStateUseCase
-import com.margarin.onlineshopeffectivetestwork.domain.usecase.favourite.ObserveFavouriteStateUseCase
+import com.margarin.onlineshopeffectivetestwork.domain.usecase.product.ChangeFavouriteStateUseCase
+import com.margarin.onlineshopeffectivetestwork.domain.usecase.product.ObserveFavouriteStateUseCase
 import com.margarin.onlineshopeffectivetestwork.domain.usecase.product.GetProductListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.transform
@@ -32,6 +34,7 @@ class CatalogViewModel @Inject constructor(
                     getProductListUseCase.getProductList()
 
                         .onStart { _state.value = CatalogState.Loading }
+                        .map { mapToProductsWithFavouriteState(it) }
                         .onEach { _state.value = CatalogState.Content(it) }
                         .filter { it.isEmpty() }
                         .collect { _state.value = CatalogState.Error }
@@ -69,6 +72,7 @@ class CatalogViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     getProductListUseCase.getProductList()
                         .onStart { _state.value = CatalogState.Loading }
+                        .map { mapToProductsWithFavouriteState(it) }
                         .transform {
                             val filteredList = mutableListOf<Product>()
                             it.forEach { product ->
@@ -88,6 +92,7 @@ class CatalogViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     getProductListUseCase.getProductList()
                         .onStart { _state.value = CatalogState.Loading }
+                        .map { mapToProductsWithFavouriteState(it) }
                         .transform {
                             val filteredList = mutableListOf<Product>()
                             it.forEach { product ->
@@ -107,6 +112,7 @@ class CatalogViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     getProductListUseCase.getProductList()
                         .onStart { _state.value = CatalogState.Loading }
+                        .map { mapToProductsWithFavouriteState(it) }
                         .transform {
                             val filteredList = mutableListOf<Product>()
                             it.forEach { product ->
@@ -126,6 +132,7 @@ class CatalogViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     getProductListUseCase.getProductList()
                         .onStart { _state.value = CatalogState.Loading }
+                        .map { mapToProductsWithFavouriteState(it) }
                         .transform {
                             val filteredList = mutableListOf<Product>()
                             it.forEach { product ->
@@ -143,9 +150,32 @@ class CatalogViewModel @Inject constructor(
 
             is CatalogEvent.ChangeFavouriteStatus -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    changeFavouriteStateUseCase.addToFavourite(event.product)
+                    observeFavouriteStateUseCase(event.product.id).first {
+                        if (it) {
+                            changeFavouriteStateUseCase.removeFromFavourite(event.product.id)
+                        } else {
+                            changeFavouriteStateUseCase.addToFavourite(event.product)
+                        }
+                        true
+                    }
                 }
             }
         }
+    }
+
+    private suspend fun mapToProductsWithFavouriteState(products: List<Product>): List<Product> {
+        val newList = mutableListOf<Product>()
+
+        products.toList().forEach {
+            var isFavourite = false
+            observeFavouriteStateUseCase(it.id).first { boolean ->
+                isFavourite = boolean
+                true
+            }
+            val product = if (isFavourite) it.copy(isFavourite = true) else it
+            newList.add(product)
+        }
+
+        return newList
     }
 }
