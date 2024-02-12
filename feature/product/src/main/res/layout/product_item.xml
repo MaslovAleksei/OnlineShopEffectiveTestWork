@@ -54,6 +54,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_old_price"
             tools:text="549 P" />
@@ -82,6 +83,7 @@
             android:layout_marginTop="4dp"
             android:textColor="@color/black"
             android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_new_price"
             tools:text="ESFOLIO" />
