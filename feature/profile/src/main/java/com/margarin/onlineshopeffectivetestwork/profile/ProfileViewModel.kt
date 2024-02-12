@@ -17,13 +17,13 @@ class ProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase,
     private val getFavouriteProductsUseCase: GetFavouriteProductsUseCase,
     private val removeAllFromFavouritesUseCase: RemoveAllFromFavouritesUseCase
-): ViewModel()  {
+) : ViewModel() {
 
     private val _state = MutableStateFlow<ProfileState>(ProfileState.Initial)
     val state = _state.asStateFlow()
 
 
-    fun sendEvent(event: ProfileEvent) {
+    internal fun sendEvent(event: ProfileEvent) {
         when (event) {
             ProfileEvent.RemoveProfileUseCase -> {
                 viewModelScope.launch(Dispatchers.IO) {
@@ -36,7 +36,7 @@ class ProfileViewModel @Inject constructor(
                 viewModelScope.launch(Dispatchers.IO) {
                     val profile = getProfileUseCase()
                     getFavouriteProductsUseCase()
-                        .collect{
+                        .collect {
                             _state.value = ProfileState.Favorites(profile, it)
                         }
                 }

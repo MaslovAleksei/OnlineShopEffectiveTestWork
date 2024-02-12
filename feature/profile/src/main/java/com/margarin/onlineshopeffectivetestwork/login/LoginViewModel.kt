@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private val addProfileUseCase: AddProfileUseCase
-): ViewModel()  {
+) : ViewModel() {
 
-    fun addProfile(firstName: String, lastName: String, phoneNumber: String) {
+    internal fun addProfile(firstName: String, lastName: String, phoneNumber: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val profile = Profile(
                 firstName = firstName,

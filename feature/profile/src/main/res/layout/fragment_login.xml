@@ -35,6 +35,8 @@
             android:layout_height="wrap_content"
             android:focusedByDefault="true"
             android:hint="@string/name"
+            android:textSize="16sp"
+            android:textColor="@color/black"
             android:inputType="textCapWords"
             android:nextFocusForward="@id/inputLayout_lastname"
             android:singleLine="true" />
@@ -51,6 +53,8 @@
         app:boxBackgroundColor="@color/light_grey"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
         app:boxCornerRadiusTopEnd="8dp"
         app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeWidth="0dp"
@@ -67,6 +71,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusedByDefault="true"
+            android:textSize="16sp"
+            android:textColor="@color/black"
             android:hint="@string/lastname"
             android:inputType="textCapWords"
             android:nextFocusForward="@id/inputLayout_phone_number"
@@ -115,8 +121,8 @@
         android:enabled="false"
         android:text="@string/sign_in"
         android:textAllCaps="false"
+        android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputLayout_phone_number" />
@@ -127,9 +133,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/loyalty_program"
+        android:textSize="10sp"
+        android:textColor="@color/medium_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/tv_login"

@@ -31,7 +31,6 @@ interface AppComponent: ProfileComponent, ProductComponent {
     fun inject(fragment: FavouritesFragment)
     fun inject(fragment: DetailsFragment)
 
-
     @Component.Factory
     interface Factory {
 

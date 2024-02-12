@@ -13,6 +13,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.models.SlideModel
+import com.margarin.core.R.drawable
 import com.margarin.onlineshopeffectivetestwork.ViewModelFactory
 import com.margarin.onlineshopeffectivetestwork.createStringAvailableForOrder
 import com.margarin.onlineshopeffectivetestwork.createStringCountOfFeedback
@@ -88,6 +89,7 @@ class DetailsFragment : Fragment() {
             tvSubtitle.text = product?.subtitle
             tvAvailable.text = product?.available?.createStringAvailableForOrder()
             if (product?.count == 0) llRating.visibility = View.GONE
+            ratingBar.rating = product?.rating ?: 0f
             tvRating.text = product?.rating.toString()
             tvFeedbackCount.text = product?.count?.createStringCountOfFeedback()
             val newPrice = "${product?.priceWithDiscount} ₽"
@@ -116,9 +118,9 @@ class DetailsFragment : Fragment() {
                         when (it) {
                             is DetailsState.Details -> {
                                 val iconLike = if (it.isFavourite) {
-                                    com.margarin.core.R.drawable.ic_like_filled
+                                    drawable.ic_like_filled
                                 } else {
-                                    com.margarin.core.R.drawable.ic_like_border
+                                    drawable.ic_like_border
                                 }
                                 binding.bLike.setImageResource(iconLike)
                             }
@@ -147,11 +149,13 @@ class DetailsFragment : Fragment() {
                 requireActivity().supportFragmentManager.popBackStack()
             }
             bLike.setOnClickListener {
-                product?.let { viewModel.sendEvent(
-                    DetailsEvent.ChangeFavouriteStatus(
-                        it
+                product?.let {
+                    viewModel.sendEvent(
+                        DetailsEvent.ChangeFavouriteStatus(
+                            it
+                        )
                     )
-                ) }
+                }
             }
             bHideDescription.setOnClickListener {
                 if (tvDescription.visibility == View.VISIBLE) {

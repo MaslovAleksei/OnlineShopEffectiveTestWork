@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
         _justNowLogged.value = false
     }
 
-    fun changeJustNowLoggedState(boolean: Boolean) {
+    internal fun changeJustNowLoggedState(boolean: Boolean) {
         _justNowLogged.value = boolean
     }
 }

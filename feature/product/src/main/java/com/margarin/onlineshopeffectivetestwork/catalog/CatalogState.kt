@@ -9,6 +9,5 @@ sealed class CatalogState {
     data object Loading : CatalogState()
     data object Initial : CatalogState()
     data class Content(val products: List<Product>) : CatalogState()
-
 }
 

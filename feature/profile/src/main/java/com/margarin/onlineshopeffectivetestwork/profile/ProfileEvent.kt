@@ -5,5 +5,4 @@ sealed class ProfileEvent {
     data object GetFavouriteList : ProfileEvent()
 
     data object RemoveProfileUseCase : ProfileEvent()
-
 }

@@ -14,6 +14,7 @@ import com.margarin.onlineshopeffectivetestwork.REFERENCE_FAVOURITE_FRAGMENT
 import com.margarin.onlineshopeffectivetestwork.ViewModelFactory
 import com.margarin.onlineshopeffectivetestwork.createStringCountOfFavourites
 import com.margarin.onlineshopeffectivetestwork.di.ProfileComponentProvider
+import com.margarin.onlineshopeffectivetestwork.formatPhone
 import com.margarin.onlineshopeffectivetestwork.replaceFragmentInOtherModule
 import com.margarin.profile.databinding.FragmentProfileBinding
 import kotlinx.coroutines.launch
@@ -75,8 +76,7 @@ class ProfileFragment : Fragment() {
                                 with(binding) {
                                     val name = "${it.profile.firstName} ${it.profile.lastName}"
                                     profileName.text = name
-                                    val phoneNumber = "+${it.profile.phoneNumber}"
-                                    profileNumber.text = phoneNumber
+                                    profileNumber.text = it.profile.phoneNumber.formatPhone()
                                     tvCount.text =
                                         it.favourites.size.createStringCountOfFavourites()
                                 }

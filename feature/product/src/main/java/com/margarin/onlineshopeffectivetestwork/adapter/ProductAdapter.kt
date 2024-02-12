@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.denzcoskun.imageslider.models.SlideModel
+import com.margarin.core.R.*
 import com.margarin.onlineshopeffectivetestwork.model.Product
 import com.margarin.product.databinding.ProductItemBinding
 import javax.inject.Inject
@@ -37,9 +38,9 @@ class ProductAdapter @Inject constructor(
             }
 
             val iconLikeResId = if (item.isFavourite) {
-                com.margarin.core.R.drawable.ic_like_filled
+                drawable.ic_like_filled
             } else {
-                com.margarin.core.R.drawable.ic_like_border
+                drawable.ic_like_border
             }
             imageButtonAddFavourite.setImageResource(iconLikeResId)
             itemImageSlider.setImageList(imageList)

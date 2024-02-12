@@ -12,5 +12,4 @@ interface ProductComponent {
     fun injectCatalogFragment(catalogFragment: CatalogFragment)
     fun injectDetailsFragment(detailsFragment: DetailsFragment)
     fun injectFavouritesFragment(favouritesFragment: FavouritesFragment)
-
 }

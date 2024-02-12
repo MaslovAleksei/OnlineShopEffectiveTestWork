@@ -19,7 +19,7 @@ class DetailsViewModel @Inject constructor(
     private val _state = MutableStateFlow<DetailsState>(DetailsState.Initial)
     val state = _state.asStateFlow()
 
-    fun sendEvent(event: DetailsEvent) {
+    internal fun sendEvent(event: DetailsEvent) {
         when (event) {
 
             is DetailsEvent.ObserveFavouriteStatus -> {

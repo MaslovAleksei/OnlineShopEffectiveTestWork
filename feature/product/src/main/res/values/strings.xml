@@ -27,6 +27,8 @@
     <string name="parameters">Характеристики</string>
     <string name="more">Подробнее</string>
     <string name="add_to_card">Добавить в корзину</string>
+    <string name="products">Товары</string>
+    <string name="brands">Бренды</string>
 
 
 </resources>

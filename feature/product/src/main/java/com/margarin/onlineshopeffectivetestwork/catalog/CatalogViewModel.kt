@@ -27,7 +27,7 @@ class CatalogViewModel @Inject constructor(
     private val _state = MutableStateFlow<CatalogState>(CatalogState.Initial)
     val state = _state.asStateFlow()
 
-    fun sendEvent(event: CatalogEvent) {
+    internal fun sendEvent(event: CatalogEvent) {
         when (event) {
             CatalogEvent.GetProductList -> {
                 viewModelScope.launch(Dispatchers.IO) {

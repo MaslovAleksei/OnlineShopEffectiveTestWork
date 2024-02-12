@@ -123,14 +123,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/border">
 
-            <ProgressBar
-                android:id="@+id/progressBarRating"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="5dp"
-                android:max="5"
-                android:min="0" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/dark_grey"
+                android:progressTint="@color/orange"
+                android:secondaryProgressTint="@color/orange"
+                android:stepSize="0.1"
+                tools:rating="3" />
 
             <TextView
                 android:id="@+id/tv_rating"
@@ -222,7 +227,9 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:clickable="true"
+            android:elevation="0dp"
             app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_description_title">
@@ -315,19 +322,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:text="Состав"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_view"
-            android:text="Состав" />
+            app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/b_copy"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_copy"
             android:background="@null"
+            android:src="@drawable/ic_copy"
             app:layout_constraintBottom_toBottomOf="@+id/tv_compound_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_compound_title"
@@ -338,9 +345,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/dark_grey"
             android:ellipsize="end"
             android:maxLines="2"
+            android:textColor="@color/dark_grey"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -411,9 +418,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:background="@null"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:text="@string/add_to_card"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

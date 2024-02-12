@@ -1,6 +1,7 @@
 package com.margarin.onlineshopeffectivetestwork.favourites
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.margarin.core.R.*
 import com.margarin.onlineshopeffectivetestwork.ViewModelFactory
 import com.margarin.onlineshopeffectivetestwork.adapter.ProductAdapter
 import com.margarin.onlineshopeffectivetestwork.details.DetailsFragment
@@ -79,15 +81,23 @@ class FavouritesFragment : Fragment() {
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect {
                     when (it) {
-                        is FavouritesState.Content -> {
+                        is FavouritesState.Favorites -> {
                             adapter.submitList(it.products)
                             binding.recyclerView.visibility = View.VISIBLE
                             binding.tvError.visibility = View.GONE
+                            setTabsState(true)
+                        }
+
+                        FavouritesState.Brands -> {
+                            binding.recyclerView.visibility = View.GONE
+                            binding.tvError.visibility = View.GONE
+                            setTabsState(false)
                         }
 
                         is FavouritesState.NoItems -> {
                             binding.recyclerView.visibility = View.GONE
                             binding.tvError.visibility = View.VISIBLE
+                            setTabsState(true)
                         }
 
                         is FavouritesState.Initial -> {}
@@ -105,6 +115,41 @@ class FavouritesFragment : Fragment() {
         }
         binding.bBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
+        }
+        binding.cardProducts.setOnClickListener {
+            viewModel.sendEvent(FavouritesEvent.GetFavouriteList)
+        }
+        binding.cardBrands.setOnClickListener {
+            viewModel.sendEvent(FavouritesEvent.GetBrandsList)
+        }
+    }
+
+    private fun setTabsState(isDefault: Boolean) {
+        when(isDefault) {
+            true -> {
+                binding.cardProducts.setBackgroundColor(requireContext()
+                    .getColor(color.white))
+                binding.tvProducts.setTextColor(requireContext()
+                    .getColor(color.black))
+                binding.tvProducts.typeface = Typeface.DEFAULT_BOLD
+                binding.cardBrands.setBackgroundColor(requireContext()
+                    .getColor(color.light_grey))
+                binding.tvBrands.setTextColor(requireContext()
+                    .getColor(color.medium_grey))
+                binding.tvBrands.typeface = Typeface.DEFAULT
+            }
+            false -> {
+                binding.cardProducts.setBackgroundColor(requireContext()
+                    .getColor(color.light_grey))
+                binding.tvProducts.setTextColor(requireContext()
+                    .getColor(color.medium_grey))
+                binding.tvProducts.typeface = Typeface.DEFAULT
+                binding.cardBrands.setBackgroundColor(requireContext()
+                    .getColor(color.white))
+                binding.tvBrands.setTextColor(requireContext()
+                    .getColor(color.black))
+                binding.tvBrands.typeface = Typeface.DEFAULT_BOLD
+            }
         }
     }
 }

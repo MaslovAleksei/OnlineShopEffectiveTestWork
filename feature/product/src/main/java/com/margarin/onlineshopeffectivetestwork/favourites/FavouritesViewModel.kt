@@ -23,12 +23,12 @@ class FavouritesViewModel @Inject constructor(
     private val _state = MutableStateFlow<FavouritesState>(FavouritesState.Initial)
     val state = _state.asStateFlow()
 
-    fun sendEvent(event: FavouritesEvent) {
+    internal fun sendEvent(event: FavouritesEvent) {
         when (event) {
             FavouritesEvent.GetFavouriteList -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     getFavouriteProductsUseCase()
-                        .onEach { _state.value = FavouritesState.Content(it) }
+                        .onEach { _state.value = FavouritesState.Favorites(it) }
                         .filter { it.isEmpty() }
                         .collect { _state.value = FavouritesState.NoItems }
                 }
@@ -46,6 +46,10 @@ class FavouritesViewModel @Inject constructor(
                         true
                     }
                 }
+            }
+
+            FavouritesEvent.GetBrandsList -> {
+                _state.value = FavouritesState.Brands
             }
         }
     }
