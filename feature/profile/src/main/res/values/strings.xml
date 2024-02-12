@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--login screen -->
+    <string name="login">Вход</string>
+    <string name="name">Имя</string>
+    <string name="lastname">Фамилия</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="sign_in">Войти</string>
+    <string name="loyalty_program">Нажимая кнопку "Войти", Вы принимаете\n<u>условия программы лояльности</u> </string>
+    <string name="text_validation_success">Успешно</string>
+    <string name="text_validation_error_empty_field">Пожалуйста, заполните текстовое поле!</string>
+    <string name="text_validation_error">Текст может содержать только кириллицу!</string>
+    <string name="phone_mask">+7 (___) ___-__-__</string>
+    <string name="please_enter_full_phone_number">Пожалуйста, введите полный номер телефона!</string>
+
+    <!--profile screen -->
+    <string name="favourites">Избранное</string>
+    <string name="cabinet">Личный кабинет</string>
+    <string name="shops">Магазины</string>
+    <string name="Support">Обратная связь</string>
+    <string name="license">Оферта</string>
+    <string name="refund">Возврат товара</string>
+    <string name="exit">Выйти</string>
+    <string name="no_items">Нет добавленных товаров</string>
+
+</resources>

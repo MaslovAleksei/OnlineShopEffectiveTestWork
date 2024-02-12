@@ -1,13 +1,14 @@
 package com.margarin.onlineshopeffectivetestwork.di
 
 import android.content.Context
+import com.margarin.onlineshopeffectivetestwork.AppScope
 import com.margarin.onlineshopeffectivetestwork.MainActivity
 import com.margarin.onlineshopeffectivetestwork.ShopApp
-import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.details.DetailsFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.favourites.FavouritesFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.login.LoginFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.profile.ProfileFragment
+import com.margarin.onlineshopeffectivetestwork.catalog.CatalogFragment
+import com.margarin.onlineshopeffectivetestwork.details.DetailsFragment
+import com.margarin.onlineshopeffectivetestwork.favourites.FavouritesFragment
+import com.margarin.onlineshopeffectivetestwork.login.LoginFragment
+import com.margarin.onlineshopeffectivetestwork.profile.ProfileFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -18,7 +19,7 @@ import dagger.Component
         ViewModelModule::class
     ]
 )
-interface AppComponent {
+interface AppComponent: ProfileComponent, ProductComponent {
 
     fun inject(application: ShopApp)
 
