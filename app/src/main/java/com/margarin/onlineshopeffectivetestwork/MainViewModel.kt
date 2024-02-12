@@ -3,7 +3,7 @@ package com.margarin.onlineshopeffectivetestwork
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.margarin.onlineshopeffectivetestwork.domain.usecase.profile.GetAuthStateFlowUseCase
+import com.margarin.onlineshopeffectivetestwork.usecase.profile.GetAuthStateFlowUseCase
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
         _justNowLogged.value = false
     }
 
-    fun changeJustNowLoggedState(boolean: Boolean) {
+    internal fun changeJustNowLoggedState(boolean: Boolean) {
         _justNowLogged.value = boolean
     }
 }

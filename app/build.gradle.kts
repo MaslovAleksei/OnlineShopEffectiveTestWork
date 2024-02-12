@@ -43,16 +43,14 @@ android {
 
 dependencies {
 
-    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.0")
+    implementation(project (":feature:product"))
+    implementation(project (":feature:profile"))
+    implementation(project (":domain"))
+    implementation(project (":data"))
+    implementation(project (":core"))
 
     implementation(libs.dagger.core)
     ksp(libs.dagger.compiler)
-
-    implementation(libs.room.core)
-    ksp(libs.room.compiler)
-
-    implementation (libs.retrofit.core)
-    implementation (libs.retrofit.gsonConverter)
 
     implementation(libs.core.ktx)
     implementation(libs.appcompat)

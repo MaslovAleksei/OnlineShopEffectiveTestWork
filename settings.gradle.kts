@@ -17,3 +17,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "OnlineShopEffectiveTestWork"
 include(":app")
+include(":data")
+include(":domain")
+include(":core")
+include(":feature:profile")
+include(":feature:product")

@@ -2,11 +2,11 @@ package com.margarin.onlineshopeffectivetestwork.di
 
 import androidx.lifecycle.ViewModel
 import com.margarin.onlineshopeffectivetestwork.MainViewModel
-import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogViewModel
-import com.margarin.onlineshopeffectivetestwork.presentation.details.DetailsViewModel
-import com.margarin.onlineshopeffectivetestwork.presentation.favourites.FavouritesViewModel
-import com.margarin.onlineshopeffectivetestwork.presentation.login.LoginViewModel
-import com.margarin.onlineshopeffectivetestwork.presentation.profile.ProfileViewModel
+import com.margarin.onlineshopeffectivetestwork.catalog.CatalogViewModel
+import com.margarin.onlineshopeffectivetestwork.details.DetailsViewModel
+import com.margarin.onlineshopeffectivetestwork.favourites.FavouritesViewModel
+import com.margarin.onlineshopeffectivetestwork.login.LoginViewModel
+import com.margarin.onlineshopeffectivetestwork.profile.ProfileViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

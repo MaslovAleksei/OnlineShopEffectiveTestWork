@@ -8,11 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.margarin.onlineshopeffectivetestwork.databinding.ActivityMainBinding
-import com.margarin.onlineshopeffectivetestwork.domain.model.AuthState
-import com.margarin.onlineshopeffectivetestwork.presentation.ViewModelFactory
-import com.margarin.onlineshopeffectivetestwork.presentation.catalog.CatalogFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.login.LoginFragment
-import com.margarin.onlineshopeffectivetestwork.presentation.profile.ProfileFragment
+import com.margarin.onlineshopeffectivetestwork.model.AuthState
+import com.margarin.onlineshopeffectivetestwork.catalog.CatalogFragment
+import com.margarin.onlineshopeffectivetestwork.login.LoginFragment
+import com.margarin.onlineshopeffectivetestwork.profile.ProfileFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.unusedfragments.CartFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.unusedfragments.DiscountsFragment
 import com.margarin.onlineshopeffectivetestwork.presentation.unusedfragments.HomeFragment
