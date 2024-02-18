@@ -17,7 +17,7 @@ interface FavouritesDao {
     fun getFavouriteProducts(): Flow<List<ProductDb>>
 
     @Query("SELECT EXISTS (SELECT * FROM favourites WHERE id=:itemId LIMIT 1)")
-    fun observeIsFavourite(itemId: String) : Flow<Boolean>
+    suspend fun checkIsFavourite(itemId: String) : Boolean
 
     @Query("DELETE FROM favourites WHERE id=:itemId")
     suspend fun removeFromFavourites(itemId: String)

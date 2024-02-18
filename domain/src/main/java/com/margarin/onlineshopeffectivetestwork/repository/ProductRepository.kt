@@ -9,7 +9,7 @@ interface ProductRepository {
 
     fun getFavouriteProducts(): Flow<List<Product>>
 
-    fun observeIsFavourite(productId: String): Flow<Boolean>
+    suspend fun checkIsFavourite(productId: String): Boolean
 
     suspend fun addToFavourite(product: Product)
 

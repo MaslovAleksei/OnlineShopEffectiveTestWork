@@ -91,18 +91,6 @@ class LoginFragment : Fragment() {
         setPhoneNumberWatcher()
     }
 
-    private fun checkAllFieldsValidated() {
-        with(binding) {
-            bSignIn.isEnabled =
-                inputLayoutFirstname.error == null &&
-                        inputLayoutLastname.error == null &&
-                        inputLayoutPhoneNumber.error == null &&
-                        inputEditTextFirstname.text?.isNotEmpty() == true &&
-                        inputEditTextLastname.text?.isNotEmpty() == true &&
-                        inputEditTextPhoneNumber.text?.isNotEmpty() == true
-        }
-    }
-
     private fun setTextNameWatcher() {
         val textNameWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -194,5 +182,17 @@ class LoginFragment : Fragment() {
             }
         }
         binding.inputEditTextPhoneNumber.addTextChangedListener(textPhoneNumberWatcher)
+    }
+
+    private fun checkAllFieldsValidated() {
+        with(binding) {
+            bSignIn.isEnabled =
+                inputLayoutFirstname.error == null &&
+                        inputLayoutLastname.error == null &&
+                        inputLayoutPhoneNumber.error == null &&
+                        inputEditTextFirstname.text?.isNotEmpty() == true &&
+                        inputEditTextLastname.text?.isNotEmpty() == true &&
+                        inputEditTextPhoneNumber.text?.isNotEmpty() == true
+        }
     }
 }

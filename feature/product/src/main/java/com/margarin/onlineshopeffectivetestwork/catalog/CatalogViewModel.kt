@@ -4,13 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.margarin.onlineshopeffectivetestwork.model.Product
 import com.margarin.onlineshopeffectivetestwork.usecase.product.ChangeFavouriteStateUseCase
-import com.margarin.onlineshopeffectivetestwork.usecase.product.ObserveFavouriteStateUseCase
+import com.margarin.onlineshopeffectivetestwork.usecase.product.CheckFavouriteStateUseCase
 import com.margarin.onlineshopeffectivetestwork.usecase.product.GetProductListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -21,7 +20,7 @@ import javax.inject.Inject
 class CatalogViewModel @Inject constructor(
     private val getProductListUseCase: GetProductListUseCase,
     private val changeFavouriteStateUseCase: ChangeFavouriteStateUseCase,
-    private val observeFavouriteStateUseCase: ObserveFavouriteStateUseCase
+    private val checkFavouriteStateUseCase: CheckFavouriteStateUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CatalogState>(CatalogState.Initial)
@@ -149,13 +148,10 @@ class CatalogViewModel @Inject constructor(
 
             is CatalogEvent.ChangeFavouriteStatus -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    observeFavouriteStateUseCase(event.product.id).first {
-                        if (it) {
-                            changeFavouriteStateUseCase.removeFromFavourite(event.product.id)
-                        } else {
-                            changeFavouriteStateUseCase.addToFavourite(event.product)
-                        }
-                        true
+                    if (checkFavouriteStateUseCase(event.product.id)) {
+                        changeFavouriteStateUseCase.removeFromFavourite(event.product.id)
+                    } else {
+                        changeFavouriteStateUseCase.addToFavourite(event.product)
                     }
                 }
             }
@@ -164,17 +160,10 @@ class CatalogViewModel @Inject constructor(
 
     private suspend fun mapToProductsWithFavouriteState(products: List<Product>): List<Product> {
         val newList = mutableListOf<Product>()
-
         products.toList().forEach {
-            var isFavourite = false
-            observeFavouriteStateUseCase(it.id).first { boolean ->
-                isFavourite = boolean
-                true
-            }
-            val product = if (isFavourite) it.copy(isFavourite = true) else it
+            val product = if (checkFavouriteStateUseCase(it.id)) it.copy(isFavourite = true) else it
             newList.add(product)
         }
-
         return newList
     }
 }

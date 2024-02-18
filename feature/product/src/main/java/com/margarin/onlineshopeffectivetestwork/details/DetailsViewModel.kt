@@ -3,17 +3,16 @@ package com.margarin.onlineshopeffectivetestwork.details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.margarin.onlineshopeffectivetestwork.usecase.product.ChangeFavouriteStateUseCase
-import com.margarin.onlineshopeffectivetestwork.usecase.product.ObserveFavouriteStateUseCase
+import com.margarin.onlineshopeffectivetestwork.usecase.product.CheckFavouriteStateUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DetailsViewModel @Inject constructor(
     private val changeFavouriteStateUseCase: ChangeFavouriteStateUseCase,
-    private val observeFavouriteStateUseCase: ObserveFavouriteStateUseCase
+    private val checkFavouriteStateUseCase: CheckFavouriteStateUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<DetailsState>(DetailsState.Initial)
@@ -22,23 +21,20 @@ class DetailsViewModel @Inject constructor(
     internal fun sendEvent(event: DetailsEvent) {
         when (event) {
 
-            is DetailsEvent.ObserveFavouriteStatus -> {
+            is DetailsEvent.CheckFavouriteStatus -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    observeFavouriteStateUseCase(event.productId).collect {
-                        _state.value = DetailsState.Details(it)
-                    }
+                    _state.value = DetailsState.Details(checkFavouriteStateUseCase(event.productId))
                 }
             }
 
             is DetailsEvent.ChangeFavouriteStatus -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    observeFavouriteStateUseCase(event.product.id).first {
-                        if (it) {
-                            changeFavouriteStateUseCase.removeFromFavourite(event.product.id)
-                        } else {
-                            changeFavouriteStateUseCase.addToFavourite(event.product)
-                        }
-                        true
+                    if (checkFavouriteStateUseCase(event.product.id)) {
+                        changeFavouriteStateUseCase.removeFromFavourite(event.product.id)
+                        _state.value = DetailsState.Details(isFavourite = false)
+                    } else {
+                        changeFavouriteStateUseCase.addToFavourite(event.product)
+                        _state.value = DetailsState.Details(isFavourite = true)
                     }
                 }
             }

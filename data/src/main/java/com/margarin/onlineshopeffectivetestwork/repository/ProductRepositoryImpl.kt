@@ -31,8 +31,8 @@ class ProductRepositoryImpl @Inject constructor(
     override fun getFavouriteProducts(): Flow<List<Product>> = favouriteDao.getFavouriteProducts()
         .map { it.toEntities() }
 
-    override fun observeIsFavourite(productId: String): Flow<Boolean> =
-        favouriteDao.observeIsFavourite(productId)
+    override suspend fun checkIsFavourite(productId: String): Boolean =
+        favouriteDao.checkIsFavourite(productId)
 
     override suspend fun addToFavourite(product: Product) {
         favouriteDao.addToFavourite(product.toDbModel())

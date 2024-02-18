@@ -66,7 +66,7 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        product?.let { viewModel.sendEvent(DetailsEvent.ObserveFavouriteStatus(it.id)) }
+        product?.let { viewModel.sendEvent(DetailsEvent.CheckFavouriteStatus(it.id)) }
         parseProductInfo()
         setOnClickListeners()
         observeViewModel()
